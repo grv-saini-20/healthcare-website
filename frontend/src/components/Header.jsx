@@ -51,15 +51,19 @@ export const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-10 lg:space-x-12">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-[15px]"
-              >
-                {link.label}
-              </button>
+          <nav className="hidden md:flex items-center space-x-1">
+            {navLinks.map((link, index) => (
+              <React.Fragment key={link.id}>
+                <button
+                  onClick={() => scrollToSection(link.id)}
+                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-[15px] px-4 py-2 rounded-lg hover:bg-blue-50"
+                >
+                  {link.label}
+                </button>
+                {index < navLinks.length - 1 && (
+                  <span className="text-gray-300">|</span>
+                )}
+              </React.Fragment>
             ))}
           </nav>
 

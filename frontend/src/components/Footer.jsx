@@ -110,35 +110,35 @@ export const Footer = () => {
         </div>
 
         {/* Social Media & Bottom Bar */}
-        <div className="border-t border-gray-700 mt-12 pt-8">
+        <div className="border-t border-gray-700 mt-12 pt-8 pb-32 md:pb-24">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Social Links */}
             <div className="flex items-center space-x-4">
-              <span className="text-gray-400 text-sm">Follow Us:</span>
+              <span className="text-gray-400 text-sm font-medium">Follow Us:</span>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="w-11 h-11 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-all duration-300 hover:scale-110 hover:shadow-lg"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="w-11 h-11 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition-all duration-300 hover:scale-110 hover:shadow-lg"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="w-11 h-11 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:shadow-lg"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="w-11 h-11 bg-gray-800 rounded-full flex items-center justify-center hover:bg-sky-500 transition-all duration-300 hover:scale-110 hover:shadow-lg"
                 aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
@@ -151,7 +151,7 @@ export const Footer = () => {
                 © {new Date().getFullYear()} Sarwal Hospital. All rights reserved.
               </p>
               <p className="text-gray-500 text-xs mt-1">
-                Designed with <Heart className="w-3 h-3 inline text-red-500" /> for better healthcare
+                Designed with <Heart className="w-3 h-3 inline text-red-500 animate-pulse" /> for better healthcare
               </p>
             </div>
           </div>
