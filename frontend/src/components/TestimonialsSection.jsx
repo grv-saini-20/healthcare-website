@@ -7,7 +7,7 @@ export const TestimonialsSection = () => {
     <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-50 to-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 scroll-animate">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider bg-white px-4 py-2 rounded-full inline-block mb-4 shadow-sm">
             Patient Testimonials
           </span>
@@ -21,10 +21,11 @@ export const TestimonialsSection = () => {
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 relative"
+              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 relative scroll-animate hover-lift"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
               {/* Quote Icon */}
               <div className="absolute -top-4 left-8 w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
@@ -54,7 +55,7 @@ export const TestimonialsSection = () => {
         </div>
 
         {/* Overall Rating Card */}
-        <div className="mt-16 bg-white rounded-2xl p-10 shadow-lg border border-blue-100 max-w-2xl mx-auto">
+        <div className="mt-16 bg-white rounded-2xl p-10 shadow-lg border border-blue-100 max-w-2xl mx-auto scroll-animate">
           <div className="text-center">
             <div className="text-6xl font-bold text-blue-600 mb-2">4.9/5</div>
             <div className="flex items-center justify-center space-x-1 mb-3">
