@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/grv-saini-20/healthcare-website/static/css/main.4aefee20.css",
+    "main.js": "/grv-saini-20/healthcare-website/static/js/main.00490a29.js",
+    "index.html": "/grv-saini-20/healthcare-website/index.html",
+    "main.4aefee20.css.map": "/grv-saini-20/healthcare-website/static/css/main.4aefee20.css.map",
+    "main.00490a29.js.map": "/grv-saini-20/healthcare-website/static/js/main.00490a29.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4aefee20.css",
+    "static/js/main.00490a29.js"
+  ]
+}
