@@ -36,41 +36,43 @@ export const EmergencyBanner = () => {
         </div>
       )}
 
-      {/* Emergency Banner - Desktop */}
-      <div className="hidden md:block fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-red-600 to-red-500 text-white shadow-2xl">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center animate-pulse">
-                <Phone className="w-6 h-6" />
+      {/* Emergency Banner - Desktop - Floating */}
+      <div className="hidden md:block fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-6xl">
+        <div className="bg-gradient-to-r from-red-600 to-red-500 text-white shadow-2xl rounded-2xl">
+          <div className="px-6 py-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center animate-pulse">
+                  <Phone className="w-7 h-7" />
+                </div>
+                <div>
+                  <div className="font-bold text-lg">24/7 Emergency Services</div>
+                  <div className="text-sm text-red-100">Call now for immediate medical assistance</div>
+                </div>
               </div>
-              <div>
-                <div className="font-bold text-lg">24/7 Emergency Services</div>
-                <div className="text-sm text-red-100">Call now for immediate medical assistance</div>
-              </div>
-            </div>
 
-            <div className="flex items-center space-x-4">
-              <a
-                href="tel:+91-XXXXXXXXXX"
-                className="bg-white text-red-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
-              >
-                Call: +91-XXXXXXXXXX
-              </a>
-              <a
-                href="https://wa.me/91XXXXXXXXXX"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition-colors"
-              >
-                WhatsApp
-              </a>
-              <button
-                onClick={() => setIsDismissed(true)}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center space-x-3">
+                <a
+                  href="tel:+91-XXXXXXXXXX"
+                  className="bg-white text-red-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-lg"
+                >
+                  Call: +91-XXXXXXXXXX
+                </a>
+                <a
+                  href="https://wa.me/91XXXXXXXXXX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-600 transition-all hover:scale-105 shadow-lg"
+                >
+                  WhatsApp
+                </a>
+                <button
+                  onClick={() => setIsDismissed(true)}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors ml-2"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -51,12 +51,12 @@ export const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-10 lg:space-x-12">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-[15px]"
               >
                 {link.label}
               </button>
@@ -64,11 +64,11 @@ export const Header = () => {
           </nav>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="outline"
               size="sm"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              className="border-blue-600 text-blue-600 hover:bg-blue-50 px-5"
               onClick={() => scrollToSection('appointment')}
             >
               <Phone className="w-4 h-4 mr-2" />
@@ -76,7 +76,7 @@ export const Header = () => {
             </Button>
             <Button
               size="sm"
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-blue-600 hover:bg-blue-700 px-5"
               onClick={() => scrollToSection('appointment')}
             >
               Book Appointment
