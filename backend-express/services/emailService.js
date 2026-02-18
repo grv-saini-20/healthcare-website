@@ -179,7 +179,7 @@ const sendAdminNotification = async (appointmentData) => {
     day: 'numeric'
   });
 
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@sarwalhospital.com';
+  const adminEmail = process.env.ADMIN_EMAIL || 'gouravsaini9797@gmail.com';
 
   const emailContent = {
     from: process.env.FROM_EMAIL || 'Sarwal Hospital <onboarding@resend.dev>',
