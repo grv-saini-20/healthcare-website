@@ -5,6 +5,9 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const AppointmentSection = () => {
   const [formData, setFormData] = useState({
@@ -17,37 +20,55 @@ export const AppointmentSection = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [appointmentId, setAppointmentId] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    setError(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Appointment booking data:', formData);
-      setIsSubmitted(true);
-      setIsSubmitting(false);
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/appointments`, formData);
       
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          treatmentType: '',
-          preferredDate: '',
-          message: ''
-        });
-      }, 3000);
-    }, 1000);
+      if (response.data.success) {
+        setAppointmentId(response.data.data.appointmentId);
+        setIsSubmitted(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setAppointmentId(null);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            treatmentType: '',
+            preferredDate: '',
+            message: ''
+          });
+        }, 5000);
+      }
+    } catch (err) {
+      console.error('Error submitting appointment:', err);
+      
+      if (err.response?.data?.errors) {
+        const errorMessages = err.response.data.errors.map(e => e.message).join(', ');
+        setError(errorMessages);
+      } else {
+        setError(err.response?.data?.message || 'Failed to submit appointment. Please try again.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -110,6 +131,12 @@ export const AppointmentSection = () => {
           <div className="bg-white rounded-2xl p-8 md:p-10 shadow-xl border border-gray-100">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
+                
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-gray-700 font-medium">
                     Full Name *
@@ -125,6 +152,7 @@ export const AppointmentSection = () => {
                       onChange={handleInputChange}
                       placeholder="Enter your full name"
                       className="pl-11 h-12 border-gray-200 focus:border-blue-500"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -144,6 +172,7 @@ export const AppointmentSection = () => {
                       onChange={handleInputChange}
                       placeholder="+91 XXXXX XXXXX"
                       className="pl-11 h-12 border-gray-200 focus:border-blue-500"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -162,6 +191,7 @@ export const AppointmentSection = () => {
                       onChange={handleInputChange}
                       placeholder="your.email@example.com"
                       className="pl-11 h-12 border-gray-200 focus:border-blue-500"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -174,6 +204,7 @@ export const AppointmentSection = () => {
                     required
                     value={formData.treatmentType}
                     onValueChange={(value) => setFormData({ ...formData, treatmentType: value })}
+                    disabled={isSubmitting}
                   >
                     <SelectTrigger className="h-12 border-gray-200">
                       <SelectValue placeholder="Select treatment type" />
@@ -205,6 +236,7 @@ export const AppointmentSection = () => {
                       onChange={handleInputChange}
                       min={new Date().toISOString().split('T')[0]}
                       className="pl-11 h-12 border-gray-200 focus:border-blue-500"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -222,6 +254,7 @@ export const AppointmentSection = () => {
                       onChange={handleInputChange}
                       placeholder="Tell us about your condition or any specific concerns..."
                       className="pl-11 min-h-[100px] border-gray-200 focus:border-blue-500 resize-none"
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -230,10 +263,13 @@ export const AppointmentSection = () => {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white h-12 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white h-12 text-lg font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? (
-                    'Submitting...'
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Submitting...
+                    </>
                   ) : (
                     <>
                       <Send className="w-5 h-5 mr-2" />
@@ -248,15 +284,20 @@ export const AppointmentSection = () => {
               </form>
             ) : (
               <div className="text-center py-12">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-scale-in">
                   <CheckCircle className="w-10 h-10 text-green-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   Appointment Request Submitted!
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-4">
                   Thank you for choosing Sarwal Hospital. Our team will contact you shortly to confirm your appointment.
                 </p>
+                {appointmentId && (
+                  <p className="text-sm text-gray-500 mb-6">
+                    Reference ID: <span className="font-mono font-bold text-blue-600">{appointmentId}</span>
+                  </p>
+                )}
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
                   <p className="text-sm text-gray-700">
                     For urgent matters, please call: <span className="font-bold text-blue-600">+91-XXXXXXXXXX</span>
