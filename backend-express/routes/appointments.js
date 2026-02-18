@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const Appointment = require('../models/Appointment');
+const { sendAppointmentConfirmation, sendAdminNotification } = require('../services/emailService');
 
 // Validation middleware
 const appointmentValidation = [
@@ -81,6 +82,28 @@ router.post('/', appointmentValidation, async (req, res) => {
 
     // Save to database
     await appointment.save();
+
+    // Send emails (don't block the response)
+    const emailData = {
+      name: appointment.name,
+      email: appointment.email,
+      phone: appointment.phone,
+      treatmentType: appointment.treatmentType,
+      preferredDate: appointment.preferredDate,
+      message: appointment.message,
+      appointmentId: appointment._id.toString()
+    };
+
+    // Send emails asynchronously
+    if (appointment.email) {
+      sendAppointmentConfirmation(emailData).catch(err => 
+        console.error('Failed to send patient email:', err.message)
+      );
+    }
+    
+    sendAdminNotification(emailData).catch(err => 
+      console.error('Failed to send admin email:', err.message)
+    );
 
     res.status(201).json({
       success: true,
