@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './styles/animations.css';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
@@ -12,8 +13,11 @@ import { LocationSection } from './components/LocationSection';
 import { FAQSection } from './components/FAQSection';
 import { Footer } from './components/Footer';
 import { EmergencyBanner } from './components/EmergencyBanner';
+import { useScrollAnimation } from './hooks/useScrollAnimation';
 
 function App() {
+  useScrollAnimation();
+  
   return (
     <div className="App">
       <Header />

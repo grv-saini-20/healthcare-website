@@ -17,7 +17,7 @@ export const ServicesSection = () => {
     <section id="services" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 scroll-animate">
           <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider bg-blue-50 px-4 py-2 rounded-full inline-block mb-4">
             Our Services
           </span>
@@ -31,12 +31,13 @@ export const ServicesSection = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => {
+          {services.map((service, index) => {
             const IconComponent = iconMap[service.icon];
             return (
               <div
                 key={service.id}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 group"
+                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 group scroll-animate hover-lift"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Icon */}
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -58,7 +59,7 @@ export const ServicesSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center bg-white rounded-2xl p-10 shadow-lg border border-blue-100">
+        <div className="mt-16 text-center bg-white rounded-2xl p-10 shadow-lg border border-blue-100 scroll-animate">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             Not Sure Which Treatment You Need?
           </h3>
@@ -67,7 +68,7 @@ export const ServicesSection = () => {
           </p>
           <Button
             size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 hover:scale-105 transition-transform"
             onClick={() => {
               const element = document.getElementById('appointment');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
